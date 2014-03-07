@@ -1,6 +1,7 @@
 # coding=utf-8
 
 import math
+import sys
 
 def is_prime(n):
 	for x in range(2, int(math.sqrt(n) + 1)):
@@ -30,4 +31,28 @@ def is_palindrome(n):
 
 	return True
 
+def are_permutations(nums):
+	#print('are permutations? ', nums)
+	for index in range(0, len(nums)):
+		nums[index] = str(nums[index])
+	elements_of_first_num = list(nums[0])
+
+	for index in range(1, len(nums)):
+		model = list(elements_of_first_num)
+		#print('before', model, elements_of_first_num)
+		for character in nums[index]:
+			if character in model:
+				model.remove(character)
+				#print(model)
+			else:
+				#print('nope')
+				return False
+		# if the model is empty, this one is okay.
+		if len(model):
+			#print('nope')
+			return False
+		#print('after', model, elements_of_first_num)
+
+	#print('yup')
+	return True
 
