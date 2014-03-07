@@ -7,3 +7,9 @@ def is_prime(n):
 		if (n % x) == 0:
 			return False
 	return True
+
+def product(nums):
+	ret = 1
+	for num in nums:
+		ret *= num
+	return ret
