@@ -56,3 +56,19 @@ def are_permutations(nums):
 	#print('yup')
 	return True
 
+def get_factors(num):
+	pass # see below re write.
+
+
+def get_number_of_divisors(num):
+	ret = 0
+	square_root_of_num = int(math.sqrt(num))
+	x = 1
+	while x <= square_root_of_num:
+		if num % x == 0:
+			ret += 2
+		x += 1
+
+	return ret
+
+
