@@ -33,9 +33,10 @@ n_divisors = 0
 
 while n_divisors < key1:
 	count += x
-	#print(count)
+	# print(count)
 	x += 1
 	n_divisors = get_number_of_divisors(count)
+	iterations += 1
 
 answer = count
 
