@@ -15,6 +15,22 @@ def product(nums):
 		ret *= num
 	return ret
 
+def get_ones_digit(n):
+	n = str(n)
+	return int(n[len(n) - 1])
+	
+def get_tens_digit(n):
+	n = str(n)
+	return int(n[len(n) - 2])
+	
+def get_hundreds_digit(n):
+	n = str(n)
+	return int(n[len(n) - 3])
+	
+def get_thousands_digit(n):
+	n = str(n)
+	return int(n[len(n) - 4])
+	
 def is_palindrome(n):
 	n = str(n)
 	if len(n) is 1:
