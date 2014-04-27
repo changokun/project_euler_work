@@ -3,6 +3,14 @@
 import math
 import sys
 
+def get_sum_of_digits(n):
+	n = str(n)
+	ret = 0
+	while len(n):
+		ret += int(n[0])
+		n = n[1:]
+	return ret
+
 def is_prime(n):
 	for x in range(2, int(math.sqrt(n) + 1)):
 		if (n % x) == 0:
