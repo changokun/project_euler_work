@@ -34,15 +34,19 @@ key1 = 1000
 
 answer = 1 # our fib sequence starts one notch in
 
-prevprev = 0
+prevprev = 1
 prev = 1
 term = prev + prevprev
-while len(str(term)) != key1:
+index = 2
+while len(str(term)) < key1:
 	term = prev + prevprev
 	# print(str(term))
 	prevprev = prev
 	prev = term
-	answer += 1
+	print(index, term)
+	index += 1
+
+answer = index
 
 
 
