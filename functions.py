@@ -3,6 +3,28 @@
 import math
 import sys
 
+def get_proper_divisors(n, limit = 10000):
+	# numbers less than n which divide evenly into n
+	index = 1 # yup, 1 divides evenly into everything.
+	maximum = n / 2 # nothing larger than half of n would create a number greater than one.
+	ret = []
+	running_total = 0
+	while index <= maximum:
+		if(is_whole_number(n/index)):
+			ret.append(index)
+			running_total += index
+			if running_total > limit:
+				return []
+		index += 1
+	return ret
+
+def is_whole_number(n):
+	if isinstance(n, int):
+		return true
+	int_n = int(n)
+	float_n = float(int_n)
+	return float_n == n
+
 def get_sum_of_digits(n):
 	n = str(n)
 	ret = 0
