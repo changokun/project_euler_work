@@ -2,6 +2,7 @@
 
 import math
 import sys
+import shelve
 
 def get_proper_divisors(n, limit = 10000):
 	# numbers less than n which divide evenly into n
@@ -34,6 +35,8 @@ def get_sum_of_digits(n):
 	return ret
 
 def is_prime(n):
+	if n < 2:
+		return False
 	for x in range(2, int(math.sqrt(n) + 1)):
 		if (n % x) == 0:
 			return False
@@ -117,4 +120,23 @@ def get_number_of_divisors(num):
 
 	return ret
 
+def get_primes(skip = 0, limit = 100):
+	primes_shelf = shelve.open('assets/primes_shelf',writeback=True)
+	# if the shelf file is lost, prime the pump with the following line, then comment out.
+	# primes_shelf['primes'] = [2]
+	ret = primes_shelf['primes'][skip:skip+limit]
+	if len(ret) >= limit:
+		primes_shelf.close()
+		return ret
 
+	print('calculating more primes - starting with ' + str(primes_shelf['primes'][len(primes_shelf['primes']) -1]))
+	x = primes_shelf['primes'][len(primes_shelf['primes']) -1] + 1
+	while len(primes_shelf['primes']) < limit + skip:
+		if is_prime(x):
+			primes_shelf['primes'].append(x)
+			#print(primes_shelf['primes'])
+		x += 1
+	ret = primes_shelf['primes'][skip:skip+limit]
+	primes_shelf.close()
+	print('new primes cached.')
+	return ret
