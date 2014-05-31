@@ -6,119 +6,137 @@ import time
 from functions import *
 from decimal import *
 import locale
+import random
 locale.setlocale(locale.LC_ALL, 'en_US')
-getcontext().prec = 80
+getcontext().prec = 10
 print(getcontext())
 
 start_time = time.time()
 time_limit = 60
 iterations = 0
+answer = 0
+
 
 # wrong guesses:
 # 707106802629
 
 
 
-print('\nIf a box contains twenty-one coloured discs, composed of fifteen blue discs and six red discs, and two discs were taken at random, it can be seen that the probability of taking two blue discs, P(BB) = (15/21)×(14/20) = 1/2.\nThe next such arrangement, for which there is exactly 50% chance of taking two blue discs at random, is a box containing eighty-five blue discs and thirty-five red discs.\nBy finding the first arrangement to contain over 10^12 = 1,000,000,000,000 discs in total, determine the number of blue discs that the box would contain.\n')
+print('\n\nIf a box contains twenty-one coloured discs, composed of fifteen blue discs and six red discs, and two discs were taken at random, it can be seen that the probability of taking two blue discs, P(BB) = (15/21)×(14/20) = 1/2.\nThe next such arrangement, for which there is exactly 50% chance of taking two blue discs at random, is a box containing eighty-five blue discs and thirty-five red discs.\nBy finding the first arrangement to contain over 10^12 = 1,000,000,000,000 discs in total, determine the number of blue discs that the box would contain.\n')
 
-def odds() :
-	probability = (blues / (blues + reds)) * ((blues -1) / (blues -1 + reds))
-	if(str(probability)[2:10] == '50000000') :
-		print ('Probability of drawing two blues from ' + str(blues) + ' blues and ' + str(reds) + ' reds is 50%!')
-		#sys.exit('yay')
+def check(reds, bues):
+	#if iterations > 1000:
+		#sys.exit()
+	#print('checking ' + str(reds) + ' reds and ' + str(blues) + ' blues: ' + str(2 * blues * (blues - 1)) + ' == ' + str((blues + reds) * (blues + reds -1)) + ' ?')
+	a = (blues + reds) * (blues + reds -1)
+	b = 2 * blues * (blues - 1)
+	if a == b:
+		if mode is 'hunt':
+			answers.append(blues)
+			print(answers)
+			print(locale.format('%d', iterations, grouping=True) + ' iterations in ' + "{:10.4f}".format(time.time() - start_time) + ' elapsed seconds\n')
+			#if len(answers) is 8:
+				#sys.exit('--------------\nExecuted ' + locale.format('%d', iterations, grouping=True) + ' iterations in ' + "{:10.4f}".format(time.time() - start_time) + ' seconds\n')
+		else:
+			print('\nFound one! ' + locale.format('%d', reds, grouping=True) + ' reds and ' + locale.format('%d', blues, grouping=True) + ' blues! ' + locale.format('%d', (blues + reds), grouping=True)+ ' total chips.')
+			print ('\nFinal Answer: ' + str(blues) + ' blue chips.')
 
-	return probability
+			sys.exit('--------------\nExecuted ' + locale.format('%d', iterations, grouping=True) + ' iterations in ' + "{:10.4f}".format(time.time() - start_time) + ' seconds\n')
 
-def odds_decimal() :
-	b = Decimal(blues)
-	r = Decimal(reds)
-
-	probability = (b / (b + r)) * ((b -1) / (b -1 + r))
-	if(probability == Decimal(0.5)) :
-		print ('[Decimal] Probability of drawing two blues from ' + str(blues) + ' blues and ' + str(reds) + ' reds is 50%!')
-		#sys.exit('yay')
-	#print ('[Decimal] Probability of drawing two blues from ' + str(blues) + ' blues and ' + str(reds) + ' reds is ' + str(probability))
-
-	return probability
-
-blues = 15
-reds = 5
-print(odds_decimal())
-reds = 6
-print(odds_decimal())
-
-
-def think(blues):
-	# how many reds?
-	global iterations
-	iterations += 1
-	return 0.5 * (math.sqrt(8*pow(blues, 2) - 8 * blues + 1) - 2 * blues + 1)
-	#return int(reds) == reds
-
-def happy(): # not in use FIAILSLSL
-	print('are we happy with ' + str(blues) + ' blues and ' + str(reds) + ' reds?')
-	ret = pow(blues, 2) * 4 - 4 * blues == pow(blues, 2) + (blues * reds) + pow(reds, 2) - blues
-	if ret:
-		print('happy')
 	else:
-		print('not happy')
-	return ret
+		return a < b
 
-# blues = 15
-# reds = 6
-# happy()
-# sys.exit('fleeting')
 
-key1 = pow(10, 12)
 
-blues = 1
 
-power = 15
+answers = []
 
-while power:
-	step = pow(10, power)
-	reds = think(blues)
-	# now increase blues until blues and reds are moer than key1
-	while blues + reds < key1:
-		blues += step
-		reds = think(blues)
 
-	#start again with x = the last smallest step that passed.
-	blues -= step
-	# and with smaller steps
-	power -= 1
+#need a function that will get a good starting point/estimate of reds and blues given a total of them.
 
-	print ('blues', locale.format('%d', blues, grouping=True), 'reds', locale.format('%d', reds, grouping=True), 'total: ', locale.format('%d', blues + reds, grouping=True), power, iterations)
+# reds = 235416
+# blues = 568345
+# 235416 +568345
+# .292893037
 
-print('all that was just to get a good starting point for blues. we will be counting up by ones, now, and looking for happiness.')
 
-happy = False
-while not happy:
-	if(time.time() - start_time > time_limit):
-		sys.exit('--------------\nTIME LIMIT REACHED.\nExecuted ' + locale.format('%d', iterations, grouping=True) + ' iterations in ' + "{:10.4f}".format(time.time() - start_time) + ' seconds')
-	blues +=1
-	reds = think(blues)
-	#print('Total chips: ' + locale.format('%d', reds + blues, grouping=True) )
-	happy = reds == int(reds)
-	if happy:
-		print('blue chips: ' + locale.format('%d', blues, grouping=True), 'red chips: ' + locale.format('%d', reds, grouping=True), 'Total chips: ' + locale.format('%d', reds + blues, grouping=True) )
-		happy = odds_decimal() == Decimal(0.5)
+# reds = 1372105
+# blues = 3312555
+# 1372105 / (1372105 + 3312555)
+# .292893188
 
-print('blue chips: ' + locale.format('%d', blues, grouping=True) )
-print('red chips: ' + locale.format('%d', reds, grouping=True) )
-print('Total chips: ' + locale.format('%d', reds + blues, grouping=True) )
+mode = 'hunt'
 
-print(think(blues))
-print(odds())
-print(odds_decimal())
+start_power = 11
 
-answer = blues
+reds = int(pow(10, start_power) * .292893188)
+blues = pow(10,start_power) - reds
+
+# start_number = 1000144559231 # (cheat)
+# reds = int(start_number * .292893188)
+# blues = start_number - reds
+
+blues = blues | 1
+
+result = True # increment red
+print('starting with ' + locale.format('%d', reds, grouping=True) + ' reds and ' + locale.format('%d', blues, grouping=True) + ' blues! Total: ' + locale.format('%d', (blues + reds), grouping=True))
+while result:
+	#if (blues - 1) % 10000000 == 0:
+		#print(locale.format('%d', iterations, grouping=True) + ' iterations in ' + "{:10.4f}".format(time.time() - start_time) + ' elapsed seconds\n')
+		#print('I have ' + locale.format('%d', reds, grouping=True) + ' reds and ' + locale.format('%d', blues, grouping=True) + ' blues! Total: ' + locale.format('%d', (blues + reds), grouping=True))
+	while result:
+		iterations += 1
+		reds += 1
+		result = check(reds, blues)
+	blues += 2 # always odd for some reason. let's save some time.
+	reds -= 2
+	result = True # go back to incrementing red
+
+print(answers)
+
+
+
+
 
 print ('\nFinal Answer: ' + str(blues) + ' blue chips.')
 
 sys.exit('--------------\nExecuted ' + locale.format('%d', iterations, grouping=True) + ' iterations in ' + "{:10.4f}".format(time.time() - start_time) + ' seconds')
 
 
+# starting with 2 reds and 9 blues! Total: 11
+# [15]
+# 7 iterations in     0.0002 elapsed seconds
 
+# [15, 85]
+# 71 iterations in     0.0004 elapsed seconds
 
+# [15, 85, 493]
+# 444 iterations in     0.0018 elapsed seconds
 
+# [15, 85, 493, 2871]
+# 2,618 iterations in     0.0068 elapsed seconds
+
+# [15, 85, 493, 2871, 16731]
+# 15,289 iterations in     0.0404 elapsed seconds
+
+# [15, 85, 493, 2871, 16731, 97513]
+# 89,141 iterations in     0.2065 elapsed seconds
+
+# [15, 85, 493, 2871, 16731, 97513, 568345]
+# 519,582 iterations in     1.1138 elapsed seconds
+
+# [15, 85, 493, 2871, 16731, 97513, 568345, 3312555]
+# 3,028,376 iterations in     6.9413 elapsed seconds
+
+# [15, 85, 493, 2871, 16731, 97513, 568345, 3312555, 19306983]
+# 17,650,699 iterations in    43.0622 elapsed seconds
+
+# starting with 292,893 reds and 707,107 blues! Total: 1,000,000
+# [3312555]
+# 2,381,936 iterations in     3.4839 elapsed seconds
+
+# [3312555, 19306983]
+# 17,004,259 iterations in    24.1548 elapsed seconds
+
+# [3312555, 19306983, 112529341]
+# 102,229,403 iterations in   150.5102 elapsed seconds
