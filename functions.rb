@@ -22,3 +22,8 @@ def measure_time
 end
 
 primes = [1,2,3,5,7,11,13]
+
+def is_palinromic?(x)
+	x.to_s.reverse == x.to_s
+end
+

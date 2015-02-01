@@ -31,11 +31,15 @@ lychrel_numbers = []
 
 limit = 10000
 
-for x in (1..limit) do
-  if is_lychrel? x
-    answer += 1
-    lychrel_numbers << x
+measure_time do
+
+  for x in (1..limit) do
+    if is_lychrel? x
+      answer += 1
+      lychrel_numbers << x
+    end
   end
+
 end
 
 puts "----------\nThere are " + answer.to_s + ' lychrel numbers below ' + limit.to_s
