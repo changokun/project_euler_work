@@ -63,6 +63,8 @@ end
 primes = [1,2,3,5,7,11,13]
 
 
+
+
 # incomplete
 def factors_of(number)
 	p number.prime_division
@@ -88,3 +90,9 @@ end
 def get_factors(x)
 	puts x.prime_division
 end
+
+
+def is_palinromic?(x)
+	x.to_s.reverse == x.to_s
+end
+
