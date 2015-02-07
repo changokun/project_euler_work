@@ -15,13 +15,13 @@ class ProjectEulerEngine
 		@start_time = Time.now
 		@elapsed = nil
 		@limit = 100
-		puts "\n\n\n"
+		puts "\n\n"
 	end
 
 	def finish
 		@elapsed = Time.now - @start_time
 
-		print "\n\n===== "
+		print "\n===== "
 		if @answer
 			puts 'The answer is: ' + @answer.to_s + ' ====='
 		else

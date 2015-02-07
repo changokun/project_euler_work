@@ -9,34 +9,42 @@ class NumberChainResearchEngine < ProjectEulerEngine
 		@data = {}
 	end
 
-	def count_eighty_nines_under(x)
-		puts 'Let us find how number chains starting with numbers under ' + x.nice_format + ' are end in eighty nine (and not one).'
+	def count_eighty_nines_under(start_number)
+		puts 'Let us find how many number chains starting with numbers under ' + start_number.nice_format + ' end in eighty nine (and not one).'
 
 		# first pad out our data hash
-		for x in (1..x-1) do
+		for x in (1..start_number-1) do
 			@data[x] = nil
 		end
 
+		# p @data
+
 		# go through it
-		@data.each do | key, value |
-			# puts 'key: ' + key.to_s + ' => value: ' + value.to_s
-			@iterations += 1
+		(start_number-1).downto 1 do | x |
+			value = @data[x]
+			# puts 'key: ' + x.to_s + ' => value: ' + value.to_s
 			if value.nil?
-				chain = []
-				# add the squares of the digits
-				next_number = get_squares_of_digits key
-				chain << next_number
-				while next_number != 1 and next_number != 89
-					next_number = get_squares_of_digits next_number
-					chain << next_number
+				@iterations += 1
+				chain = get_chain x
+				# p x, chain
+				chain.each do | x |
+					@data[x] = chain.last
 				end
-				@data[key] = next_number
-				# p key, chain, next_number
 			end
 		end
 
-		@answer = @data.count(&:last)
+		@data.keep_if {| key, value | value == 89 }
+		@answer = @data.length
 
+	end
+
+	def get_chain(x)
+		chain = []
+		while x != 1 and x != 89
+			chain << x
+			x = get_squares_of_digits x
+		end
+		chain << x
 	end
 
 	def get_squares_of_digits(x)

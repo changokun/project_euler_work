@@ -2,6 +2,10 @@
 require_relative 'functions.rb'
 
 
+# problem 32
+require_relative '032.rb'
+engine = PandigitalProductEngine.new
+engine.sum_of_pandigital_products
 
 
 # problem 35
@@ -9,10 +13,18 @@ require_relative 'functions.rb'
 # engine = CircularPrimeResearchEngine.new
 # engine.count_circular_primes_under 1000000
 
+# problem 65
+# require_relative '065.rb'
+# engine = ConvergenceEngine.new
+# engine.sum_digits_in_numerator_of_convergent 100
+
 # problem 92
-require_relative '092.rb'
-engine = NumberChainResearchEngine.new
-engine.count_eighty_nines_under 100
+# require_relative '092.rb'
+# engine = NumberChainResearchEngine.new
+# engine.count_eighty_nines_under 10000000
+
+
+
 
 
 
