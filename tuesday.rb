@@ -19,9 +19,14 @@ require_relative 'functions.rb'
 # engine.find_the_largest
 
 # problem 46
-require_relative '046.rb'
-engine = GoldbachsOtherEngine.new
-engine.find_the_largest
+# require_relative '046.rb'
+# engine = GoldbachsOtherEngine.new
+# engine.find_the_largest
+
+# problem 52
+require_relative '052.rb'
+engine = LeastAnagramMultipleEngine.new
+engine.find_the_least
 
 # problem 65
 # require_relative '065.rb'
