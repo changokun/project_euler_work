@@ -24,14 +24,19 @@ require_relative 'functions.rb'
 # engine.find_the_largest
 
 # problem 52
-require_relative '052.rb'
-engine = LeastAnagramMultipleEngine.new
-engine.find_the_least
+# require_relative '052.rb'
+# engine = LeastAnagramMultipleEngine.new
+# engine.find_the_least
 
 # problem 65
 # require_relative '065.rb'
 # engine = ConvergenceEngine.new
 # engine.sum_digits_in_numerator_of_convergent 100
+
+# problem 73
+require_relative '073.rb'
+engine = AnneEngine.new
+engine.find_the_answer 12000
 
 # problem 92
 # require_relative '092.rb'
