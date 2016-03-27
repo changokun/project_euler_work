@@ -34,14 +34,19 @@ require_relative 'functions.rb'
 # engine.sum_digits_in_numerator_of_convergent 100
 
 # problem 73
-require_relative '073.rb'
-engine = AnneEngine.new
-engine.find_the_answer 12000
+# require_relative '073.rb'
+# engine = AnneEngine.new
+# engine.find_the_answer 12000
 
 # problem 92
 # require_relative '092.rb'
 # engine = NumberChainResearchEngine.new
 # engine.count_eighty_nines_under 10000000
+
+# problem 92
+require_relative '104.rb'
+engine = Pandigital_Fibonacci_Ends.new
+engine.find_it
 
 
 
